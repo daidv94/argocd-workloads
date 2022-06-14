@@ -13,7 +13,7 @@ spec:
   source:
     path: apps/argocd-configs
     repoURL: {{ .Values.spec.source.repoURL }}
-    targetRevision: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
     directory:
       recurse: true
   syncPolicy:
