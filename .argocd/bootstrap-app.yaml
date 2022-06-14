@@ -11,8 +11,6 @@ spec:
     path: bootstrap
     repoURL: 'https://github.com/daidv94/argocd-workloads.git'
     targetRevision: main
-    directory:
-      recurse: true
     helm:
       valueFiles:
         - values.yaml
