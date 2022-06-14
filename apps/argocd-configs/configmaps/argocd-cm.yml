@@ -9,3 +9,4 @@ metadata:
 data:
   # Enables anonymous user access. The anonymous users get default role permissions specified argocd-rbac-cm.yaml.
   users.anonymous.enabled: "true"
+  exec.enabled: "true"
