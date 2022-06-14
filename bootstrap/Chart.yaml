@@ -1,0 +1,5 @@
+apiVersion: v2
+name: bootstrap
+version: 1.0.0
+description: Boiler template chart for argocd
+appVersion: "1.0.0"
