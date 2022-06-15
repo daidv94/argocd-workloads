@@ -8,6 +8,6 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   # Enables anonymous user access. The anonymous users get default role permissions specified argocd-rbac-cm.yaml.
-  url: https://argocd.example.com
+  url: http://argocd.example.com
   users.anonymous.enabled: "true"
   exec.enabled: "true"
