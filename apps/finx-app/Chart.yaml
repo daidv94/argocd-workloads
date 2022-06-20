@@ -5,6 +5,6 @@ description: FinX app
 appVersion: "1.0.0"
 
 dependencies: # A list of the chart requirements (optional)
-  - name: galaxyfinx
+  - name: app
     version: 1.0.10
-    repository: oci://ghcr.io/galaxyfinx/helm-charts/app
+    repository: oci://ghcr.io/galaxyfinx/helm-charts
