@@ -1,0 +1,10 @@
+apiVersion: v2
+name: finx-app
+version: 1.0.0
+description: FinX app
+appVersion: "1.0.0"
+
+dependencies: # A list of the chart requirements (optional)
+  - name: galaxyfinx
+    version: 1.0.10
+    repository: oci://ghcr.io/galaxyfinx/helm-charts/app
