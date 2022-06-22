@@ -42,11 +42,11 @@ spec:
 
       # Post-promotion analysis run which performs analysis after the service
       # cutover. +optional
-      postPromotionAnalysis:
-        templates:
-        - templateName: go-app-analysis-template
-        args:
-        - name: service-name
-          value: go-app-active.services.svc.cluster.local
+      # postPromotionAnalysis:
+      #   templates:
+      #   - templateName: go-app-analysis-template
+      #   args:
+      #   - name: service-name
+      #     value: go-app-active.services.svc.cluster.local
 
       autoPromotionEnabled: false
