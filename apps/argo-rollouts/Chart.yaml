@@ -1,0 +1,10 @@
+apiVersion: v2
+name: argo-rollouts
+version: 2.17.0
+description: Argocd rollouts application
+appVersion: "v1.2.0"
+
+dependencies:
+- name: argo-rollouts
+  version: 2.17.0
+  repository: https://argoproj.github.io/argo-helm/argo-rollouts
