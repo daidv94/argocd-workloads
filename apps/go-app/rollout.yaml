@@ -32,4 +32,21 @@ spec:
       # immediately before the promotion. If omitted, the default behavior is to promote the new
       # stack as soon as the ReplicaSet are completely ready/available.
       # Rollouts can be resumed using: `kubectl argo rollouts promote ROLLOUT`
+      # cutover. +optional
+      prePromotionAnalysis:
+        templates:
+        - templateName: go-app-analysis-template
+        args:
+        - name: service-name
+          value: go-app-preview.services.svc.cluster.local
+
+      # Post-promotion analysis run which performs analysis after the service
+      # cutover. +optional
+      postPromotionAnalysis:
+        templates:
+        - templateName: go-app-analysis-template
+        args:
+        - name: service-name
+          value: go-app-active.services.svc.cluster.local
+
       autoPromotionEnabled: false
