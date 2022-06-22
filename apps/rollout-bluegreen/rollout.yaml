@@ -7,11 +7,11 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: rollout-bluegreen
+      app: go-app
   template:
     metadata:
       labels:
-        app: rollout-bluegreen
+        app: go-app
     spec:
       containers:
       - name: rollouts-demo
