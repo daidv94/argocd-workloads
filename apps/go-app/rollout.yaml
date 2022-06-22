@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: rollout-bluegreen
+  name: go-app
 spec:
   replicas: 2
   revisionHistoryLimit: 2
@@ -14,8 +14,8 @@ spec:
         app: go-app
     spec:
       containers:
-      - name: rollouts-demo
-        image: argoproj/rollouts-demo:blue
+      - name: go-app
+        image: docker.io/daidaovan/go-app:1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
