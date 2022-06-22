@@ -8,7 +8,7 @@ spec:
   - name: service-name
   # optional in Rollout given the default value
   - name: api-url
-    value: http://example/measure
+    value: http://go-app-preview.services.svc.cluster.local
   metrics:
   - name: webmetric
     successCondition: response.code == 200
@@ -18,7 +18,7 @@ spec:
     provider:
       web:
         # placeholders are resolved when an AnalysisRun is created
-        url: "{{ args.api-url }}?service={{ args.service-name }}"
+        url: "{{ args.api-url }}"
         # headers:
         #   - key: Authorization
         #     value: "Bearer {{ args.api-token }}"
