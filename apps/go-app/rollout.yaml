@@ -49,4 +49,4 @@ spec:
       #   - name: service-name
       #     value: go-app-active.services.svc.cluster.local
 
-      autoPromotionEnabled: false
+      autoPromotionEnabled: true
