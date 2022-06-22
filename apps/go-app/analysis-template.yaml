@@ -6,8 +6,6 @@ spec:
   args:
   # required in Rollout due to no default value
   - name: service-name
-  - name: stable-hash
-  - name: latest-hash
   # optional in Rollout given the default value
   - name: api-url
     value: http://example/measure
