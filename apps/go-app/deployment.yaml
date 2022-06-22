@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-app
+  namespace: services
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: go-app
+        app: go-app
+    spec:
+      containers:
+      - name: go-app
+        image: docker.io/daidaovan/go-app:1.0
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+      # imagePullSecrets:
+      #   - name: codefresh-generated-r.cfcr.io-cfcr-colors
