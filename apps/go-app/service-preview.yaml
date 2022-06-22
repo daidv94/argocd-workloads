@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-app-preview
+  namespace: services
+spec:
+  ports:
+  - name: http1
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: go-app
+  sessionAffinity: None
+  type: ClusterIP
