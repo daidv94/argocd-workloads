@@ -15,7 +15,7 @@ spec:
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
     directory:
-      recurse: true
+      recurse: false
   syncPolicy:
     automated:
       prune: true
@@ -24,11 +24,3 @@ spec:
     syncOptions:
     - ApplyOutOfSyncOnly=true
     - CreateNamespace=true
-    - Validate=true
-    - PruneLast=true
-    - RespectIgnoreDifferences=true
-  ignoreDifferences:
-  - group: "apps"
-    kind: "Deployment"
-    jsonPointers:
-    - /spec/replicas
