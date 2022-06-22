@@ -11,6 +11,7 @@ spec:
     value: http://go-app-preview.services.svc.cluster.local
   metrics:
   - name: webmetric
+    initialDelay: 30s
     successCondition: "true"
     # interval: 10s
     # count: 2
