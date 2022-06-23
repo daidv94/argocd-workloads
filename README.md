@@ -2,7 +2,7 @@
 
 Repo for testing argocd
 
-## Prequiste
+## Prerequisite
 
 Install the followings tool
 
