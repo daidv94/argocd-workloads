@@ -49,4 +49,5 @@ spec:
       #   - name: service-name
       #     value: go-app-active.services.svc.cluster.local
 
-      autoPromotionEnabled: true
+      autoPromotionEnabled: false
+      autoPromotionSeconds: 30
