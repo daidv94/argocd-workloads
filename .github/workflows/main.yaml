@@ -1,26 +1,44 @@
-name: Build go container
+name: Build docker
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "v*.*.*"
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Docker Login
-        # You may pin to the exact commit or the version.
-        # uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
-        uses: docker/login-action@v2.0.0
+      - name: Login Docker Hub
+        uses: docker/login-action@v1
         with:
-          # Server address of Docker registry. If not set then will default to Docker Hub
-          registry: index.docker.io
-          # Username used to log against the Docker registry
-          username: daidaovan
-          # Password or personal access token used to log against the Docker registry
-          password: Daovandai12
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        id: buildx
+
+      - name: Cache Docker Image Layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        id: docker_build
+        with:
+          context: ./sample/
+          file: ./sample/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/go-app:${{ github.ref_name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Verify
+        run: echo ${{ steps.docker_build.outputs.digest }}
