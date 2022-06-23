@@ -23,4 +23,4 @@ jobs:
           # Username used to log against the Docker registry
           username: daidaovan
           # Password or personal access token used to log against the Docker registry
-          password: Daovandai!2
+          password: Daovandai12
