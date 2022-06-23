@@ -6,7 +6,7 @@ import (
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusInternalServerError)
+	w.WriteHeader(http.StatusInternalServerError) // tag 3.0
 	w.Write([]byte("500 - Something bad happened!"))
 	// fmt.Fprintf(w, "I am a GO application version 3 running in a Docker image.")
 }
