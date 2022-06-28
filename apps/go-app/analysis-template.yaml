@@ -18,7 +18,7 @@ spec:
     provider:
       web:
         # placeholders are resolved when an AnalysisRun is created
-        url: http://go-app-preview.services.svc.cluster.local:8083/healthy
+        url: http://go-app-preview.services.svc.cluster.local/healthy
         timeoutSeconds: 20
         jsonPath: "{$.status}"
         # headers:
