@@ -15,10 +15,10 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: docker.io/daidaovan/go-app:1.0
+        image: cthub/go-temp-web-server:v1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 8091
   strategy:
     blueGreen: 
       # activeService specifies the service to update with the new template hash at time of promotion.
@@ -49,4 +49,4 @@ spec:
       #   - name: service-name
       #     value: go-app-active.services.svc.cluster.local
 
-      autoPromotionEnabled: true
+      autoPromotionEnabled: false

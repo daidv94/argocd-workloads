@@ -11,15 +11,16 @@ spec:
     value: http://go-app-preview.services.svc.cluster.local
   metrics:
   - name: webmetric
-    initialDelay: 30s
-    successCondition: "true"
+    initialDelay: 1m
+    successCondition: result == "ok"
     # interval: 10s
     # count: 2
-    failureLimit: 3
     provider:
       web:
         # placeholders are resolved when an AnalysisRun is created
-        url: http://go-app-preview.services.svc.cluster.local
+        url: http://go-app-preview.services.svc.cluster.local:8083/healthy
+        timeoutSeconds: 20
+        jsonPath: "{$.status}"
         # headers:
         #   - key: Authorization
         #     value: "Bearer {{ args.api-token }}"
