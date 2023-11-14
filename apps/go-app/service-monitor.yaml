@@ -4,7 +4,7 @@ metadata:
   name: go-app
   namespace: services
   labels:
-    team: monitor-enable
+    app: go-app
 spec:
   selector:
     matchLabels:
