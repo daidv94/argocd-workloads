@@ -4,7 +4,7 @@ metadata:
   name: prometheus-operator-crds
 spec:
   destination:
-    namespace: prometheus-operator-crds
+    namespace: monitoring
     server: 'https://kubernetes.default.svc'
   source:
     path: apps/prometheus-operator-crds
