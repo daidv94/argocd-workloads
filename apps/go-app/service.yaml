@@ -7,7 +7,7 @@ spec:
   - name: http
     port: 80
     protocol: TCP
-    targetPort: 8091
+    targetPort: 8080
   selector:
     app: go-app
   type: ClusterIP
