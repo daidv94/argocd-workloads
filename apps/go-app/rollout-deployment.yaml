@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: ccthub/go-temp-web-server:v0.5
+        image: ccthub/go-temp-web-server:v1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8091

@@ -2763,7 +2763,7 @@ applicationSet:
 ## Notifications controller
 notifications:
   # -- Enable notifications controller
-  enabled: true
+  enabled: false
 
   # -- Notifications controller name string
   name: notifications-controller
