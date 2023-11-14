@@ -19,4 +19,4 @@ spec:
           service:
             name: go-app
             port:
-              number: 8080
+              number: 80
