@@ -742,6 +742,11 @@ prometheus:
           static_configs:
             - targets:
               - localhost:9090
+        - job_name: go-app
+          metrics_path: /metrics
+          static_configs:
+            - targets:
+              - go-app.services.svc.cluster.local
 
         # A scrape configuration for running Prometheus on a Kubernetes cluster.
         # This uses separate scrape configs for cluster components (i.e. API server, node)
