@@ -50,4 +50,12 @@ k apply -f .argocd/nginx-ingress-controller.yaml
 k apply -f .argocd/argocd-ingress.yaml
 ```
 
+- Edit your /etc/hosts file with the following record
+
+```bash
+127.0.0.1       localhost argocd.example.com
+```
+
+- Try to access [http://argocd.example.com]
+
 ---
