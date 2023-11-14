@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: daidaovan/go-app:v2.0.0
+        image: daidaovan/go-app:v2.1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8091
