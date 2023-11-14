@@ -1,11 +1,24 @@
-FROM golang:alpine AS build-env
-ADD . /src
-RUN cd /src && go build -o hello-web
+# Build the application from source
+FROM golang:1.20 AS build-stage
 
-FROM alpine
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY *.go ./
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o /sample
+
+# Deploy the application binary into a lean image
+FROM gcr.io/distroless/base-debian11 AS build-release-stage
+
+WORKDIR /
+
+COPY --from=build-stage /sample /sample
 
 EXPOSE 8080
 
-WORKDIR /app
-COPY --from=build-env /src/hello-web /app/
-ENTRYPOINT ./hello-web
+USER nonroot:nonroot
+
+ENTRYPOINT ["/sample"]
