@@ -1,0 +1,12 @@
+apiVersion: v2
+name: prometheus-operator-crds
+version: 7.0.0
+description: |
+  A Helm chart that collects custom resource definitions (CRDs) from the Prometheus Operator, allowing for seamless
+  integration with GitOps tools
+appVersion: "v0.69.1"
+
+dependencies:
+- name: prometheus-operator-crds
+  version: 7.0.0
+  repository: https://github.com/prometheus-community/helm-charts
