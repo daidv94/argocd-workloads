@@ -14,7 +14,5 @@ data:
   #   g, subject, inherited-subject
   # See https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md for additional information.
   policy.csv: |
-    # Grant all members of the group 'finx:team-developer; the ability to sync apps in 'hosting-platform' project
-    p, finx:team-developer, applications, sync, hosting-platform/*, allow
-    # Grant all members of 'finx:team-beta' admins
-    g, finx:team-hosting-plaform, role:admin
+    p, idp:team-developer, applications, sync, hosting-platform/*, allow
+    g, idp:team-hosting-plaform, role:admin
