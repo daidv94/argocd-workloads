@@ -1,27 +1,27 @@
-apiVersion: argoproj.io/v1alpha1
-kind: AnalysisTemplate
-metadata:
-  name: go-app-analysis-template
-spec:
-  args:
-  # required in Rollout due to no default value
-  - name: service-name
-  # optional in Rollout given the default value
-  - name: api-url
-    value: http://go-app-preview.services.svc.cluster.local
-  metrics:
-  - name: webmetric
-    initialDelay: 1m
-    successCondition: result == "ok"
-    # interval: 10s
-    # count: 2
-    provider:
-      web:
-        # placeholders are resolved when an AnalysisRun is created
-        url: http://go-app-preview.services.svc.cluster.local/healthy
-        timeoutSeconds: 20
-        jsonPath: "{$.status}"
-        # headers:
-        #   - key: Authorization
-        #     value: "Bearer {{ args.api-token }}"
-        # jsonPath: "{$.results.ok}"
+# apiVersion: argoproj.io/v1alpha1
+# kind: AnalysisTemplate
+# metadata:
+#   name: go-app-analysis-template
+# spec:
+#   args:
+#   # required in Rollout due to no default value
+#   - name: service-name
+#   # optional in Rollout given the default value
+#   - name: api-url
+#     value: http://go-app-preview.services.svc.cluster.local
+#   metrics:
+#   - name: webmetric
+#     initialDelay: 1m
+#     successCondition: result == "ok"
+#     # interval: 10s
+#     # count: 2
+#     provider:
+#       web:
+#         # placeholders are resolved when an AnalysisRun is created
+#         url: http://go-app-preview.services.svc.cluster.local/healthy
+#         timeoutSeconds: 20
+#         jsonPath: "{$.status}"
+#         # headers:
+#         #   - key: Authorization
+#         #     value: "Bearer {{ args.api-token }}"
+#         # jsonPath: "{$.results.ok}"
