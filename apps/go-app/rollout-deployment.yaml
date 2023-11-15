@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: daidaovan/go-app:v2.2.0
+        image: daidaovan/go-app:v2.1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8090
@@ -37,7 +37,7 @@ spec:
         startingStep: 2 # delay starting analysis run until setWeight: 40%
       steps:
       - setWeight: 20
-      - pause: {duration: 2m}
+      - pause: {}
       - setWeight: 40
       - pause: {duration: 2m}
       - setWeight: 60
