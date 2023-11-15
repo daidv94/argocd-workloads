@@ -241,9 +241,13 @@ argo-rollouts:
     ##
     ingress:
       # -- Enable dashboard ingress support
-      enabled: false
+      enabled: true
       # -- Dashboard ingress annotations
-      annotations: {}
+      annotations:
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+
       # -- Dashboard ingress labels
       labels: {}
       # -- Dashboard ingress class name
@@ -253,8 +257,8 @@ argo-rollouts:
       ## Argo Rollouts Dashboard Ingress.
       ## Hostnames must be provided if Ingress is enabled.
       ## Secrets must be manually created in the namespace
-      hosts: []
-        # - argorollouts.example.com
+      hosts:
+        - argorollouts.example.com
 
       # -- Dashboard ingress paths
       paths:
