@@ -18,8 +18,9 @@ spec:
         generators:
           - list:
               elements:
-              - ignoreSync:
-                - foo
+              - name: aa
+                ignoreSync:
+                  - foo
               # {{- if $cluster.ignoreSync }}
               # - ignoreSync: foo
               # {{- range $cluster.ignoreSync }}
