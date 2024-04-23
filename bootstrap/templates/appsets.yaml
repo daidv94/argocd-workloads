@@ -18,17 +18,13 @@ spec:
         generators:
           - list:
               elements:
-              - name: aa
-                ignoreSync:
-                  - foo
-              # {{- if $cluster.ignoreSync }}
-              # - ignoreSync: foo
-              # {{- range $cluster.ignoreSync }}
-              #   - {{ . }}
-              # {{- end }}
-              # {{- else }}
-              # - ignoreSync: []
-              # {{- end }}
+              {{- if $cluster.ignoreSync }}
+              {{- range $cluster.ignoreSync }}
+                - ignoreSync: {{ . }}
+              {{- end }}
+              {{- else }}
+              - ignoreSync: ""
+              {{- end }}
           - matrix:
               generators:
                 - git:
