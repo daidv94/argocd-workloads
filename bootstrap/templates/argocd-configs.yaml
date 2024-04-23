@@ -8,12 +8,12 @@ metadata:
 spec:
   destination:
     namespace: argocd
-    server: {{ .Values.spec.destination.server }}
+    server: https://kubernetes.default.svc
   project: default
   source:
     path: apps/argocd-configs
-    repoURL: {{ .Values.spec.source.repoURL }}
-    targetRevision: {{ .Values.spec.source.targetRevision }}
+    repoURL: {{ .Values.root.source.repoURL }}
+    targetRevision: {{ .Values.root.source.targetRevision }}
     directory:
       recurse: true
   syncPolicy:

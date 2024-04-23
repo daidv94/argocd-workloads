@@ -1,0 +1,85 @@
+{{- if .Values.root.services }}
+{{- range $cluster := .Values.root.services.clusters }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: '{{- $cluster.name }}'
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  {{- with or $.Values.root.bootstrap.annotations }}
+  annotations:
+    {{- toYaml $.Values.root.bootstrap.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+              {{- if $cluster.ignoreSync }}
+              - ignoreSync:
+              {{- range $cluster.ignoreSync }}
+                - {{ . }}
+              {{- end }}
+              {{- else }}
+              - ignoreSync: []
+              {{- end }}
+          - matrix:
+              generators:
+                - git:
+                    repoURL: '{{- $.Values.root.source.repoURL }}'
+                    revision: '{{- $.Values.root.source.targetRevision }}'
+                    directories:
+                    {{- range $path := $cluster.paths }}
+                      - path: '{{- $path }}'
+                    {{- end }}
+                - clusters:
+                    selector:
+                      matchLabels:
+                        argocd.argoproj.io/secret-type: cluster
+                        cluster-name: '{{- $cluster.name }}'
+                        region: '{{- $cluster.region }}'
+                        cell: '{{- $cluster.cell }}'
+  template:
+    metadata:
+      name: '{{ `{{path[1]}}-{{path[2]}}` }}'
+      labels:
+        cluster-name: '{{- $cluster.name }}'
+        region: '{{- $cluster.region  }}'
+        cell: '{{- $cluster.cell  }}'
+    spec:
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ `{{path[1]}}` }}'
+      project: default
+      source:
+        repoURL: '{{- $.Values.root.source.repoURL }}'
+        targetRevision: '{{- $.Values.root.source.targetRevision }}'
+        path: '{{ `{{path}}` }}'
+        directory:
+          recurse: true
+      syncPolicy:
+        automated:
+          {{- include "bootstrap.automated" (dict "value" $.Values.root.bootstrap.automated) | indent 10 }}
+        retry:
+          limit: 10
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          {{- include "bootstrap.syncOptions" (dict "value" $.Values.root.bootstrap.syncOptions) | indent 10 }}
+      ignoreDifferences:
+        {{- toYaml $.Values.root.bootstrap.ignoreDifferences| nindent 8 }}
+  {{- if $cluster.ignoreSync }}
+  templatePatch: |
+    spec:
+      {{ `{{- range .ignoreSync }}` }}
+      {{ `{{- if eq . "{{path[1]}}" }}` }}
+      syncPolicy: {}
+      {{ `{{- end }}` }}
+      {{ `{{- end }}` }}
+  {{- end }}
+{{- end }}
+{{- end }}

@@ -1,6 +1,46 @@
-spec:
-  destination:
-    server: https://kubernetes.default.svc
+# Bootstrap ApplicationSet
+root:
   source:
-    repoURL: https://github.com/daidv94/argocd-workloads.git
+    repoURL: https://github.com/daidv94/argocd-workloads
     targetRevision: main
+  bootstrap:
+    name: bootstrap
+    annotations: {}
+    automated:
+      allowEmpty: false
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    ignoreDifferences:
+      - group: admissionregistration.k8s.io
+        kind: ValidatingWebhookConfiguration
+        jqPathExpressions:
+          - .webhooks[].failurePolicy
+      - group: apps
+        kind: Deployment
+        jsonPointers:
+          - /spec/replicas
+      - group: argoproj.io
+        kind: Rollout
+        jsonPointers:
+          - /spec/replicas
+      - group: "*"
+        kind: "*"
+        managedFieldsManagers:
+          - kube-controller-manager
+
+  # Microservices applicationsets
+  services:
+    clusters:
+      - name: main-cluster
+        region: us-east-1
+        cell: a
+        ignoreSync:
+        - foo
+        paths:
+          - apps/foo/*/k8s
+          - apps/bar/*/k8s
