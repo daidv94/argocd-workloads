@@ -17,14 +17,15 @@ spec:
         generators:
           - list:
               elements:
-              {{- if $cluster.ignoreSync }}
-              - ignoreSync:
-              {{- range $cluster.ignoreSync }}
-                - {{ . }}
-              {{- end }}
-              {{- else }}
-              - ignoreSync: []
-              {{- end }}
+              - ignoreSync: foo
+              # {{- if $cluster.ignoreSync }}
+              # - ignoreSync: foo
+              # {{- range $cluster.ignoreSync }}
+              #   - {{ . }}
+              # {{- end }}
+              # {{- else }}
+              # - ignoreSync: []
+              # {{- end }}
           - matrix:
               generators:
                 - git:
