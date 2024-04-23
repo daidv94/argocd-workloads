@@ -12,7 +12,7 @@ metadata:
     {{- toYaml $.Values.root.bootstrap.annotations | nindent 4 }}
   {{- end }}
 spec:
-  goTemplate: true
+  # goTemplate: true
   generators:
     - matrix:
         generators:
