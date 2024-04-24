@@ -12,18 +12,19 @@ metadata:
     {{- toYaml $.Values.root.bootstrap.annotations | nindent 4 }}
   {{- end }}
 spec:
-  # goTemplate: true
+  goTemplate: true
   generators:
     - matrix:
         generators:
           - list:
               elements:
               {{- if $cluster.ignoreSync }}
+              ignoreSync:
               {{- range $cluster.ignoreSync }}
-                - ignoreSync: {{ . }}
+                - {{ . }}
               {{- end }}
               {{- else }}
-              - ignoreSync: ""
+              - ignoreSync: []
               {{- end }}
           - matrix:
               generators:
@@ -43,7 +44,7 @@ spec:
                         cell: '{{- $cluster.cell }}'
   template:
     metadata:
-      name: '{{ `{{path[1]}}-{{path[2]}}` }}'
+      name: '{{ `{{ index .path.segments 1 }}-{{ index .path.segments 2 }}` }}'
       labels:
         cluster-name: '{{- $cluster.name }}'
         region: '{{- $cluster.region  }}'
@@ -51,12 +52,12 @@ spec:
     spec:
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ `{{path[1]}}` }}'
+        namespace: '{{ `{{ index .path.segments 1 }}` }}'
       project: default
       source:
         repoURL: '{{- $.Values.root.source.repoURL }}'
         targetRevision: '{{- $.Values.root.source.targetRevision }}'
-        path: '{{ `{{path}}` }}'
+        path: '{{ `{{ .path.path }}` }}'
         directory:
           recurse: true
       syncPolicy:
@@ -76,7 +77,7 @@ spec:
   # templatePatch: |
   #   spec:
   #     {{ `{{- range .ignoreSync }}` }}
-  #     {{ `{{- if eq . "{{path[1]}}" }}` }}
+  #     {{ `{{- if eq . {{path[1]}} }}` }}
   #     syncPolicy: {}
   #     {{ `{{- end }}` }}
   #     {{ `{{- end }}` }}
