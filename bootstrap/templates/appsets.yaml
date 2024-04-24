@@ -78,7 +78,7 @@ spec:
     spec:
       {{ `{{- range .ignoreSync }}` }}
       {{ `{{- if eq . "{{ index $.path.segments 1 }}" }}` }}
-      {{ `syncPolicy: {}` }}
+      {{ `syncPolicy: {} | toJson` }}
       {{ `{{- end }}` }}
       {{ `{{- end }}` }}
   {{- end }}
