@@ -76,11 +76,11 @@ spec:
   {{- if $cluster.ignoreSync }}
   templatePatch: |
     spec:
-      {{ `{{- range .ignoreSync }}` }}
-      {{ `{{- if eq . {{ index .path.segments 1 }} }}` }}
+      {{- range .ignoreSync }}
+      {{- if eq . {{ index .path.segments 1 }} }}
       syncPolicy: {}
-      {{ `{{- end }}` }}
-      {{ `{{- end }}` }}
+      {{- end }}
+      {{- end }}
   {{- end }}
 {{- end }}
 {{- end }}
