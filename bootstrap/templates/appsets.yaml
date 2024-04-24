@@ -73,14 +73,14 @@ spec:
           {{- include "bootstrap.syncOptions" (dict "value" $.Values.root.bootstrap.syncOptions) | indent 10 }}
       ignoreDifferences:
         {{- toYaml $.Values.root.bootstrap.ignoreDifferences| nindent 8 }}
-  # {{- if $cluster.ignoreSync }}
-  # templatePatch: |
-  #   spec:
-  #     {{ `{{- range .ignoreSync }}` }}
-  #     {{ `{{- if eq . {{path[1]}} }}` }}
-  #     syncPolicy: {}
-  #     {{ `{{- end }}` }}
-  #     {{ `{{- end }}` }}
-  # {{- end }}
+  {{- if $cluster.ignoreSync }}
+  templatePatch: |
+    spec:
+      {{ `{{- range .ignoreSync }}` }}
+      {{ `{{- if eq . {{ index .path.segments 1 }} }}` }}
+      syncPolicy: {}
+      {{ `{{- end }}` }}
+      {{ `{{- end }}` }}
+  {{- end }}
 {{- end }}
 {{- end }}
