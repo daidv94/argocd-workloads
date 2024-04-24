@@ -19,12 +19,12 @@ spec:
           - list:
               elements:
               {{- if $cluster.ignoreSync }}
-              ignoreSync:
+                - ignoreSync:
               {{- range $cluster.ignoreSync }}
-                - {{ . }}
+                  - {{ . }}
               {{- end }}
               {{- else }}
-              - ignoreSync: []
+                - ignoreSync: []
               {{- end }}
           - matrix:
               generators:
