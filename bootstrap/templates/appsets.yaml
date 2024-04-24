@@ -77,7 +77,7 @@ spec:
   templatePatch: |
     spec:
       {{ `{{- range .ignoreSync }}` }}
-      {{ `{{- if eq . {{ index .path.segments 1 }} }}` }}
+      {{ `{{- if eq . '{{ index .path.segments 1 }}' }}` }}
       {{ `syncPolicy: {}` }}
       {{ `{{- end }}` }}
       {{ `{{- end }}` }}
