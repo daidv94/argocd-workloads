@@ -76,8 +76,9 @@ spec:
   {{- if $cluster.ignoreSync }}
   templatePatch: |
     spec:
+      {{ `{{- $path := (index .path.segments 1) }}` }}
       {{ `{{- range .ignoreSync }}` }}
-      {{ `{{- if eq . (index (.path.segments 1)) }}` }}
+      {{ `{{- if eq . $path }}` }}
       {{ `syncPolicy: {}` }}
       {{ `{{- end }}` }}
       {{ `{{- end }}` }}
