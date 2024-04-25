@@ -77,8 +77,8 @@ spec:
   templatePatch: |
     spec:
       {{ `{{- $path := "foo" }}` }}
-      {{ `{{- range .ignoreSync }}` }}
-      {{ `{{- if eq . $path }}` }}
+      {{ `{{- range $i := .ignoreSync }}` }}
+      {{ `{{- if eq $i $path }}` }}
       {{ `syncPolicy: {}` }}
       {{ `{{- end }}` }}
       {{ `{{- end }}` }}
