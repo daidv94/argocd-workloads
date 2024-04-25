@@ -60,6 +60,16 @@ spec:
         path: '{{ `{{ .path.path }}` }}'
         directory:
           recurse: true
+      ignoreDifferences:
+        {{- toYaml $.Values.root.bootstrap.ignoreDifferences| nindent 8 }}
+  {{- if $cluster.ignoreSync }}
+  templatePatch: |
+    spec:
+      {{ `{{- $path := (index .path.segments 1) }}` }}
+      {{ `{{- range $i := .ignoreSync }}` }}
+      {{ `{{- if eq $i $path }}` }}
+      {{ `syncPolicy: {}` }}
+      {{ `{{- else }}` }}
       syncPolicy:
         automated:
           {{- include "bootstrap.automated" (dict "value" $.Values.root.bootstrap.automated) | indent 10 }}
@@ -71,15 +81,6 @@ spec:
             maxDuration: 3m
         syncOptions:
           {{- include "bootstrap.syncOptions" (dict "value" $.Values.root.bootstrap.syncOptions) | indent 10 }}
-      ignoreDifferences:
-        {{- toYaml $.Values.root.bootstrap.ignoreDifferences| nindent 8 }}
-  {{- if $cluster.ignoreSync }}
-  templatePatch: |
-    spec:
-      {{ `{{- $path := index (.path.segments 1) }}` }}
-      {{ `{{- range $i := .ignoreSync }}` }}
-      {{ `{{- if eq $i $path }}` }}
-      {{ `syncPolicy: {}` }}
       {{ `{{- end }}` }}
       {{ `{{- end }}` }}
   {{- end }}
