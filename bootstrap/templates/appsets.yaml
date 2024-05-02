@@ -62,7 +62,6 @@ spec:
           recurse: true
       ignoreDifferences:
         {{- toYaml $.Values.root.bootstrap.ignoreDifferences| nindent 8 }}
-  {{- if $cluster.ignoreSync }}
   templatePatch: |
     spec:
       {{ `{{- $path := (index .path.segments 1) }}` }}
@@ -83,6 +82,5 @@ spec:
           {{- include "bootstrap.syncOptions" (dict "value" $.Values.root.bootstrap.syncOptions) | indent 10 }}
       {{ `{{- end }}` }}
       {{ `{{- end }}` }}
-  {{- end }}
 {{- end }}
 {{- end }}
