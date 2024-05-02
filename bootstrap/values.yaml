@@ -39,6 +39,7 @@ root:
       - name: main-cluster
         region: us-east-1
         cell: a
+        ignoreSync: []
         paths:
           - apps/foo/*/k8s
           - apps/bar/*/k8s
