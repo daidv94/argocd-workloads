@@ -81,7 +81,9 @@ spec:
       {{ `{{- $path := (index .path.segments 1) }}` }}
       {{ `{{- range $i := .ignoreSync }}` }}
       {{ `{{- if eq $i $path }}` }}
-      {{ `syncPolicy: {}` }}
+      syncPolicy:
+        syncOptions:
+          {{- include "bootstrap.syncOptions" (dict "value" $.Values.root.bootstrap.syncOptions) | indent 10 }}
       {{ `{{- else }}` }}
       syncPolicy:
         automated:
