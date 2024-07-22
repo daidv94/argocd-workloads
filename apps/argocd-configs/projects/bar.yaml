@@ -17,6 +17,6 @@ spec:
   - '*'
 
   destinations:
-  - namespace: bar
+  - namespace: "*"
     server: https://kubernetes.default.svc
 
