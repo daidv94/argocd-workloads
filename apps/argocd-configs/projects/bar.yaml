@@ -17,6 +17,6 @@ spec:
   - '*'
 
   destinations:
-  - namespace: argocd
+  - namespace: bar
     server: https://kubernetes.default.svc
 
