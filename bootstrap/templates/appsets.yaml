@@ -54,7 +54,7 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ `{{ index .path.segments 1 }}` }}'
-      project: default
+      project: '{{ `{{ index .path.segments 1 }}` }}'
       source:
         repoURL: '{{- $.Values.root.source.repoURL }}'
         targetRevision: '{{- $.Values.root.source.targetRevision }}'
