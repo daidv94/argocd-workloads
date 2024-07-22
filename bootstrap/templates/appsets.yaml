@@ -49,6 +49,7 @@ spec:
         cluster-name: '{{- $cluster.name }}'
         region: '{{- $cluster.region  }}'
         cell: '{{- $cluster.cell  }}'
+        env: dev
     spec:
       destination:
         server: https://kubernetes.default.svc
