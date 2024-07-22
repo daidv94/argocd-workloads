@@ -4,7 +4,7 @@ metadata:
   name: bar1-echo
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 5
   selector:
     matchLabels:
       app: bar1-echo
