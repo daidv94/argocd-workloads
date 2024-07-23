@@ -26,66 +26,44 @@ data:
       - app-sync-status-unknown
   template.app-deployed: |
     message: |
-      {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} is now running new version of deployments manifests.
+      {{if eq .serviceType "slack"}}:github-approved:{{end}} Application {{.app.metadata.name}} is now running new version of deployments manifests.
     slack:
-      blocks: |
+      attachments: |
         [
           {
-            "type": "header",
-            "text": {
-              "type": "plain_text",
-              "text": "New request",
-              "emoji": true
-            }
-          },
-          {
-            "type": "section",
+            "title": "{{ .app.metadata.name}}",
+            "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+            "color": "#18be52",
             "fields": [
               {
-                "type": "mrkdwn",
-                "text": "*Type:*\nPaid Time Off"
+                "title": "Environment",
+                "value": "{{.app.metadata.labels.env}}",
+                "short": true
               },
               {
-                "type": "mrkdwn",
-                "text": "*Created by:*\n<example.com|Fred Enriquez>"
-              }
-            ]
-          },
-          {
-            "type": "section",
-            "fields": [
-              {
-                "type": "mrkdwn",
-                "text": "*When:*\nAug 10 - Aug 13"
-              }
-            ]
-          },
-          {
-            "type": "actions",
-            "elements": [
-              {
-                "type": "button",
-                "text": {
-                  "type": "plain_text",
-                  "emoji": true,
-                  "text": "Approve"
-                },
-                "style": "primary",
-                "value": "click_me_123"
+                "title": "Sync Status",
+                "value": "{{.app.status.sync.status}}",
+                "short": true
               },
               {
-                "type": "button",
-                "text": {
-                  "type": "plain_text",
-                  "emoji": true,
-                  "text": "Reject"
-                },
-                "style": "danger",
-                "value": "click_me_123"
+                "title": "Deployer",
+                "value": "{{.app.status.operationState.operation.initiatedBy.username}}",
+                "short": true
+              },
+              {
+                "title": "Revision",
+                "value": "{{.app.status.sync.revision}}",
+                "short": true
+              },
+              {
+                "title": "Source",
+                "value": "{{.app.spec.source.repoURL}}/{{.app.spec.source.path}}",
+                "short": true
               }
             ]
           }
         ]
+
   template.app-sync-failed: |
     message: |
       {{if eq .serviceType "slack"}}:sos:{{end}} Application {{.app.metadata.name}} is failed to sync.
